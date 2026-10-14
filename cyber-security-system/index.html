@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cyber Security Assessment and Protection System - A student college project featuring basic malware file scanning, system security check, password auditing, security assessment, and quiz.">
+  <title>Cyber Security Assessment and Protection System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="nav-brand">
+        <span class="brand-icon">🛡️</span>
+        <div class="brand-text">
+          <span class="brand-title">CyberSec System</span>
+          <span class="brand-tag">College Final Project</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#scanner" class="nav-link">File Scanner</a></li>
+          <li><a href="#syscheck" class="nav-link">System Check</a></li>
+          <li><a href="#password" class="nav-link">Password Check</a></li>
+          <li><a href="#assessment" class="nav-link">Security Assessment</a></li>
+          <li><a href="#quiz" class="nav-link">Cyber Quiz</a></li>
+          <li><a href="#scenarios" class="nav-link">Scenarios</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         SECTION 1: HERO / CONSOLE DASHBOARD
+         ========================================================================= -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="console-status-bar">
+          <span class="pulse-dot"></span>
+          <span>SYSTEM READY &bull; STUDENT CYBER SECURITY PROJECT &bull; LOCAL RUN</span>
+        </div>
+
+        <h1 class="hero-title">Cyber Security Assessment and <span class="text-gradient">Protection System</span></h1>
+        <div class="hero-subtitle">"Learn Cybersecurity. Understand Threats. Improve Protection."</div>
+
+        <p class="hero-desc">
+          A practical, beginner-friendly cybersecurity application designed for Computer Engineering students.
+          Scan local files for virus signatures and suspicious patterns, run a basic system security inspection,
+          test password strengths, evaluate your personal computer's security posture, and test your knowledge through an interactive quiz.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#scanner" class="btn btn-primary">🔍 Scan a File for Viruses</a>
+          <a href="#syscheck" class="btn btn-secondary">💻 Run System Check</a>
+          <a href="#assessment" class="btn btn-outline">📊 Security Assessment</a>
+          <a href="#quiz" class="btn btn-outline">📝 Cyber Quiz</a>
+        </div>
+
+        <!-- Metrics Dashboard -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">🔍</div>
+            <div>
+              <div class="metric-number">File Scan</div>
+              <div class="metric-label">Virus &amp; Hash Detection</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">💻</div>
+            <div>
+              <div class="metric-number">System Check</div>
+              <div class="metric-label">Browser &amp; Privacy Audit</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">🔑</div>
+            <div>
+              <div class="metric-number">Password</div>
+              <div class="metric-label">Strength &amp; Entropy Meter</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">📝</div>
+            <div>
+              <div class="metric-number">25 Quiz Qs</div>
+              <div class="metric-label">Knowledge Retention</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: BASIC FILE & MALWARE SCANNER
+         ========================================================================= -->
+    <section id="scanner" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TOOL 01: BASIC MALWARE DETECTION</span>
+          <h2 class="section-title">File &amp; Malware <span class="text-gradient">Security Scanner</span></h2>
+          <p class="section-desc">
+            Upload or drag-and-drop any file from your computer (e.g. <code>.exe</code>, <code>.pdf</code>, <code>.docx</code>, <code>.txt</code>, <code>.bat</code>).
+            The scanner computes its real cryptographic SHA-256 hash, checks for dangerous double extensions, detects suspicious script commands, and checks for standard virus test signatures (EICAR).
+          </p>
+        </div>
+
+        <div class="scanner-wrapper">
+          <!-- Drop Zone -->
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-icon">📁</div>
+            <h3 style="color:#fff; margin-bottom:0.5rem; font-size:1.2rem;">Drag &amp; Drop a file here to scan</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1rem;">or browse files from your computer</p>
+            <input type="file" id="fileInput" style="display:none;">
+            <button type="button" class="btn btn-primary btn-sm" id="browseFileBtn">📂 Choose File</button>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.75rem;">
+              Safe &amp; Client-Side: File is analyzed locally in your browser. Nothing is uploaded to any external server.
+            </div>
+          </div>
+
+          <!-- Scanning Progress Bar (hidden by default) -->
+          <div id="scanProgressBarContainer" style="display:none; margin:1.5rem 0;">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.4rem;">
+              <span id="scanStatusText" style="color:var(--cyan); font-family:var(--font-mono);">Scanning file...</span>
+              <span id="scanPercentText" style="color:var(--cyan); font-family:var(--font-mono); font-weight:700;">0%</span>
+            </div>
+            <div class="checklist-progress-bar-container" style="margin:0;">
+              <div class="checklist-progress-fill" id="scanProgressFill" style="width:0%;"></div>
+            </div>
+          </div>
+
+          <!-- Scan Results Card (hidden by default) -->
+          <div id="scanResultCard" class="scan-result-card" style="display:none;">
+            <div class="scan-result-header">
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <span id="scanVerdictIcon" style="font-size:2rem;">🛡️</span>
+                <div>
+                  <h3 id="scanVerdictTitle" style="color:#fff; margin:0; font-size:1.25rem;">File Analysis Complete</h3>
+                  <div id="scanVerdictSubtitle" style="font-size:0.85rem; color:var(--text-secondary);">Clean and safe</div>
+                </div>
+              </div>
+              <span class="badge" id="scanVerdictBadge">Clean</span>
+            </div>
+
+            <!-- File Details Table -->
+            <div class="table-responsive" style="margin:1rem 0;">
+              <table class="table-custom">
+                <tbody>
+                  <tr>
+                    <td style="width:180px; font-weight:600; color:var(--cyan);">File Name:</td>
+                    <td id="resFileName" style="color:#fff; font-family:var(--font-mono);">-</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600; color:var(--cyan);">File Size:</td>
+                    <td id="resFileSize">-</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600; color:var(--cyan);">Detected Extension:</td>
+                    <td id="resFileExt" style="font-family:var(--font-mono);">-</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600; color:var(--cyan);">SHA-256 Hash:</td>
+                    <td id="resFileHash" style="font-family:var(--font-mono); font-size:0.8rem; word-break:break-all; color:#bae6fd;">-</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight:600; color:var(--cyan);">Heuristic Checks:</td>
+                    <td id="resHeuristics">-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Scan Recommendation Alert Box -->
+            <div id="scanAlertBox" class="callout callout-success" style="margin-top:1rem;">
+              <div class="callout-icon" id="scanAlertIcon">✅</div>
+              <div>
+                <strong id="scanAlertTitle">Security Assessment: Clean</strong>
+                <p id="scanAlertDesc" style="margin:0.25rem 0 0; font-size:0.88rem;">
+                  No known malicious patterns, suspicious double extensions, or virus signatures were detected in this file.
+                </p>
+              </div>
+            </div>
+
+            <div style="text-align:right; margin-top:1rem;">
+              <button type="button" class="btn btn-outline btn-sm" id="scanAnotherBtn">🔄 Scan Another File</button>
+            </div>
+          </div>
+
+          <!-- Quick Test Helper -->
+          <div style="background:rgba(15,23,42,0.6); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:1rem; margin-top:1.5rem; font-size:0.85rem; color:var(--text-secondary);">
+            <strong>💡 Testing Tip for Your Demonstration:</strong>
+            <p style="margin:0.35rem 0 0;">
+              Want to demonstrate how the scanner detects a virus? Click 
+              <button type="button" class="btn btn-outline btn-sm" id="testEicarBtn" style="padding:0.2rem 0.6rem; font-size:0.78rem; margin:0 0.3rem;">Test Standard EICAR Virus String</button> 
+              or 
+              <button type="button" class="btn btn-outline btn-sm" id="testSuspiciousBtn" style="padding:0.2rem 0.6rem; font-size:0.78rem;">Test Fake Double Extension (invoice.pdf.exe)</button>
+              to see the scanner identify and flag threats instantly!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: BASIC SYSTEM & BROWSER SECURITY CHECK
+         ========================================================================= -->
+    <section id="syscheck" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TOOL 02: CLIENT AUDIT</span>
+          <h2 class="section-title">Computer &amp; Browser <span class="text-gradient">Security Check</span></h2>
+          <p class="section-desc">
+            Audits your live operating environment directly from the browser. Checks connection encryption, tracking headers, cookie protections, and device security properties.
+          </p>
+        </div>
+
+        <div class="syscheck-grid" id="syscheckGrid">
+          <!-- Dynamically populated by JS: 6 Audit Cards -->
+        </div>
+
+        <div style="text-align:center; margin-top:2rem;">
+          <button type="button" class="btn btn-primary" id="recheckSystemBtn">🔄 Re-Scan System Parameters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: BASIC PASSWORD STRENGTH CHECKER
+         ========================================================================= -->
+    <section id="password" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TOOL 03: CREDENTIAL AUDITING</span>
+          <h2 class="section-title">Password Strength &amp; <span class="text-gradient">Brute-Force Checker</span></h2>
+          <p class="section-desc">
+            Test how resilient a password is against brute-force dictionary attacks. Calculates password entropy and estimates crack times.
+          </p>
+        </div>
+
+        <div class="password-auditor-wrapper">
+          <div style="margin-bottom:1.25rem;">
+            <label for="passwordInput" style="display:block; font-weight:600; color:#fff; margin-bottom:0.5rem;">Enter a test password to evaluate:</label>
+            <div style="display:flex; gap:0.5rem; max-width:600px;">
+              <input type="text" id="passwordInput" placeholder="Type password here (e.g. TestPass@2026)..." style="flex:1; padding:0.8rem 1rem; border-radius:var(--radius-md); background:var(--bg-card); border:1px solid var(--border-color); color:#fff; font-family:var(--font-mono); font-size:1rem;">
+              <button type="button" class="btn btn-outline" id="generatePassBtn" title="Generate strong password">⚡ Random Strong</button>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.4rem;">
+              Privacy Note: Evaluated 100% locally in browser memory. Never sent across any network.
+            </div>
+          </div>
+
+          <!-- Strength Bar -->
+          <div style="max-width:600px; margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.35rem;">
+              <span style="color:var(--text-secondary);">Strength Level: <strong id="passStrengthLabel" style="color:var(--rose);">Very Weak</strong></span>
+              <span id="passEntropyLabel" style="font-family:var(--font-mono); color:var(--cyan); font-size:0.8rem;">0 Bits Entropy</span>
+            </div>
+            <div class="checklist-progress-bar-container" style="margin:0;">
+              <div id="passStrengthFill" class="checklist-progress-fill" style="width:10%; background:var(--rose);"></div>
+            </div>
+          </div>
+
+          <!-- Crack Time Cards Grid -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
+            <div class="info-card">
+              <div style="font-size:0.8rem; color:var(--text-secondary);">Online Web Brute-Force (100 guesses/sec)</div>
+              <div id="crackTimeOnline" style="font-size:1.25rem; font-weight:700; color:#fff; margin-top:0.3rem;">Instant</div>
+            </div>
+            <div class="info-card">
+              <div style="font-size:0.8rem; color:var(--text-secondary);">Offline High-End GPU (10 Billion guesses/sec)</div>
+              <div id="crackTimeGpu" style="font-size:1.25rem; font-weight:700; color:#fff; margin-top:0.3rem;">Instant</div>
+            </div>
+          </div>
+
+          <!-- Password Checklist Criteria -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:0.75rem;" id="passCriteriaList">
+            <div class="criteria-pill" id="critLength">❌ At least 12 characters</div>
+            <div class="criteria-pill" id="critUpper">❌ Uppercase letter (A-Z)</div>
+            <div class="criteria-pill" id="critLower">❌ Lowercase letter (a-z)</div>
+            <div class="criteria-pill" id="critNum">❌ Number digit (0-9)</div>
+            <div class="criteria-pill" id="critSpecial">❌ Special symbol (!@#$)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: PERSONAL COMPUTER SECURITY ASSESSMENT
+         ========================================================================= -->
+    <section id="assessment" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TOOL 04: POSTURE AUDIT</span>
+          <h2 class="section-title">Personal Computer <span class="text-gradient">Security Assessment</span></h2>
+          <p class="section-desc">
+            Complete this 10-point educational self-assessment to evaluate your personal endpoint protection practices.
+            Receive a transparent posture score out of 100 with personalized recommendations.
+          </p>
+        </div>
+
+        <div class="assessment-wrapper">
+          <div style="background:rgba(14,165,233,0.08); border-left:4px solid var(--blue); padding:1rem 1.25rem; border-radius:var(--radius-md); margin-bottom:1.5rem; font-size:0.88rem; color:#bae6fd;">
+            <strong>Scoring Methodology:</strong> Each positive security practice (Yes) earns 10 points. Choosing "Not sure" awards 5 points and generates a prompt to inspect that setting. "No" awards 0 points and highlights an immediate risk area.
+          </div>
+
+          <!-- Assessment Questions (Rendered via JS) -->
+          <div class="assessment-questions" id="assessmentQuestionsContainer">
+            <!-- Questions 1-10 populated by script.js -->
+          </div>
+
+          <div style="text-align:center; margin-top:2rem;">
+            <button type="button" id="calculateAssessmentBtn" class="btn btn-primary" style="padding:0.9rem 2.2rem; font-size:1rem;">
+              📊 Calculate My Security Score
+            </button>
+          </div>
+
+          <!-- Assessment Results (Hidden until submitted) -->
+          <div class="assessment-results" id="assessmentResultsContainer">
+            <div class="assessment-score-header">
+              <div class="score-display-box">
+                <div class="score-circle" id="assessmentScoreCircle">
+                  <div class="score-number" id="assessmentScoreValue">0</div>
+                  <div class="score-max">/ 100</div>
+                </div>
+                <div>
+                  <span class="badge" id="assessmentScoreBadge">0% Posture</span>
+                  <h3 style="color:#fff; margin:0.4rem 0 0.2rem;" id="assessmentScoreRating">Analyzing Posture...</h3>
+                  <p style="margin:0; font-size:0.88rem; color:var(--text-secondary);">Educational evaluation of your computer defense hygiene.</p>
+                </div>
+              </div>
+              <button type="button" id="retakeAssessmentBtn" class="btn btn-outline btn-sm">🔄 Retake Assessment</button>
+            </div>
+
+            <div id="assessmentRecommendationsList" class="results-breakdown-list">
+              <!-- Dynamically populated recommendations -->
+            </div>
+
+            <!-- Mandatory Educational Disclaimer -->
+            <div class="callout callout-warning" style="margin-top:2rem;">
+              <div class="callout-icon">⚠️</div>
+              <div>
+                <strong>Important Educational Disclaimer:</strong>
+                <p style="margin:0.25rem 0 0; font-size:0.85rem;">
+                  "This is an educational self-assessment. It is not a professional security audit and does not guarantee that your computer or network is secure."
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: CYBERSECURITY CHALLENGE QUIZ (25 QUESTIONS)
+         ========================================================================= -->
+    <section id="quiz" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TOOL 05: KNOWLEDGE RETENTION</span>
+          <h2 class="section-title">Cybersecurity <span class="text-gradient">Challenge Quiz</span></h2>
+          <p class="section-desc">
+            Test your comprehension with 25 technically rigorous multiple-choice questions covering malware, network security, firewalls, and defenses. Select an answer to reveal instant feedback and detailed explanations for every question.
+          </p>
+        </div>
+
+        <div class="quiz-wrapper">
+          <div class="quiz-header-bar">
+            <div>
+              <span class="badge badge-emerald">25 Academic Questions</span>
+              <span style="font-size:0.88rem; color:var(--text-secondary); margin-left:0.5rem;">Malware, LAN, VPNs, OS Hardening, Firewalls &amp; Ethical Hacking</span>
+            </div>
+            <div id="quizAnsweredCount" style="font-family:var(--font-mono); font-size:0.9rem; color:var(--cyan); font-weight:700;">
+              0 / 25 Answered
+            </div>
+          </div>
+
+          <!-- Quiz Questions Container (Rendered dynamically from QUIZ_QUESTIONS array in script.js) -->
+          <div id="quizQuestionsContainer">
+            <!-- 25 Questions populated by script.js -->
+          </div>
+
+          <div style="text-align:center; margin-top:2rem;">
+            <button type="button" id="submitQuizBtn" class="btn btn-primary" style="padding:0.9rem 2.5rem; font-size:1.05rem;">
+              🎯 Submit Quiz &amp; View Final Grade
+            </button>
+          </div>
+
+          <!-- Quiz Results Card -->
+          <div class="quiz-results-card" id="quizResultsCard">
+            <span class="badge badge-emerald">EVALUATION REPORT</span>
+            <div class="quiz-big-score" id="quizBigScore">0%</div>
+            <div style="font-size:1.1rem; color:var(--text-secondary); margin-bottom:1.5rem;" id="quizScoreFraction">0 of 25 correct answers</div>
+            <h3 style="color:#fff; font-size:1.4rem; margin-bottom:0.5rem;" id="quizFeedbackTitle">Calculating...</h3>
+            <p style="max-width:600px; margin:0 auto 2rem; font-size:0.95rem;" id="quizFeedbackDesc">Performance analysis.</p>
+            <button type="button" id="retakeQuizBtn" class="btn btn-secondary">🔄 Try Quiz Again</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: CYBERSECURITY AWARENESS SCENARIOS
+         ========================================================================= -->
+    <section id="scenarios" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">TOOL 06: INCIDENT DECISION SIMULATION</span>
+          <h2 class="section-title">Cybersecurity Awareness <span class="text-gradient">Scenarios</span></h2>
+          <p class="section-desc">
+            Explore 5 realistic workplace and student cybersecurity scenarios. Choose how you would react in each situation to learn the safest security protocols.
+          </p>
+        </div>
+
+        <!-- Scenario 1: Suspicious Email -->
+        <div class="scenario-card">
+          <div class="scenario-card-header">
+            <span class="scenario-icon">📧</span>
+            <div>
+              <span class="badge">Scenario 01: Email Phishing Simulation</span>
+              <div class="scenario-question" style="margin-top:0.35rem; margin-bottom:0;">
+                You receive an email with the subject: <em>"URGENT: Outstanding Semester Lab Fee Invoice - Due in 2 Hours or Course Registration Cancelled"</em>. The email contains an attached zip file named <code>Fee_Invoice_Official.zip</code> and is sent from <code>bursar-college-alert@fastmail-secure.net</code>. What is your response?
+              </div>
+            </div>
+          </div>
+          <div class="scenario-options">
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Opening an untrusted zip file from an unverified external email domain is extremely dangerous. Attackers frequently use ZIP files to conceal malicious executables or scripts that bypass standard email gateway filters.">
+              <span>A. Download and unzip the attachment immediately to check if you really owe money.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="true" data-explanation="Recognizing the spoofed external domain (@fastmail-secure.net) and artificial urgency is the hallmark of defensive computing. Directly contacting the official college accounts office using published numbers or logging into your official portal confirms your balance safely.">
+              <span>B. Do not open the attachment. Flag the email as phishing, and verify your account status directly via the official college portal.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Replying to the email confirms to the cybercriminal that your email address is active and monitored, inviting further targeted spear-phishing attempts.">
+              <span>C. Reply to the email asking the sender to confirm your student ID number.</span>
+              <span>👉</span>
+            </button>
+          </div>
+          <div class="scenario-feedback"></div>
+        </div>
+
+        <!-- Scenario 2: Unknown USB Drive -->
+        <div class="scenario-card">
+          <div class="scenario-card-header">
+            <span class="scenario-icon">💾</span>
+            <div>
+              <span class="badge">Scenario 02: Removable Media Security</span>
+              <div class="scenario-question" style="margin-top:0.35rem; margin-bottom:0;">
+                While walking through the campus computer engineering parking lot, you find a brand new 64GB USB flash drive labeled <em>"Faculty_Salary_Grades_2026.docx"</em> lying on the pavement. What is your immediate action?
+              </div>
+            </div>
+          </div>
+          <div class="scenario-options">
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Plugging an unknown USB drive into your computer is a critical security violation (USB Baiting). Rogue devices like 'Rubber Ducky' or 'Bash Bunny' emulate human keyboards to inject thousands of keystrokes per second, opening reverse shells in seconds.">
+              <span>A. Plug the flash drive into your laptop to look through the documents and find the owner's identity.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="true" data-explanation="Handing unknown removable media directly to IT Security or the Department Lost & Found without connecting it to any computer prevents hardware-level USB injection and BadUSB firmware exploits.">
+              <span>B. Do not connect the drive to any device. Turn it in directly to the Campus IT Helpdesk or Security Office.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Even attempting to format an unknown drive requires mounting it on your OS, which triggers firmware payloads before the format command can execute.">
+              <span>C. Plug it in and immediately run a Quick Format so you can use the free 64GB storage.</span>
+              <span>👉</span>
+            </button>
+          </div>
+          <div class="scenario-feedback"></div>
+        </div>
+
+        <!-- Scenario 3: Tailgating at Secure Room -->
+        <div class="scenario-card">
+          <div class="scenario-card-header">
+            <span class="scenario-icon">🚪</span>
+            <div>
+              <span class="badge">Scenario 03: Physical Access &amp; Tailgating</span>
+              <div class="scenario-question" style="margin-top:0.35rem; margin-bottom:0;">
+                You swipe your authorized badge to enter the departmental server room. An unfamiliar individual wearing a telecom technician jacket carrying a heavy toolkit approaches and steps in right behind you before the door latches shut. What do you do?
+              </div>
+            </div>
+          </div>
+          <div class="scenario-options">
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Assuming someone is authorized simply because they carry tools or wear a uniform is how social engineers and corporate spies gain unrestricted physical access to server racks and network switches.">
+              <span>A. Smile and say nothing; they are wearing a technician jacket so they must be on duty.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="true" data-explanation="Politely asking for visible visitor credentials and requesting that they badge in individually enforces access audit logs and prevents unauthorized physical tampering with core infrastructure.">
+              <span>B. Politely stop the individual, ask to see their departmental visitor badge, and require them to scan their own credential.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Ignoring physical intrusions leaves critical servers exposed to direct physical tampering, unauthorized flash drive insertions, or hardware keyloggers.">
+              <span>C. Finish your work quickly and leave the room while leaving the technician inside alone.</span>
+              <span>👉</span>
+            </button>
+          </div>
+          <div class="scenario-feedback"></div>
+        </div>
+
+        <!-- Scenario 4: Urgent Password Reset Phone Call -->
+        <div class="scenario-card">
+          <div class="scenario-card-header">
+            <span class="scenario-icon">📞</span>
+            <div>
+              <span class="badge">Scenario 04: Voice Phishing (Vishing)</span>
+              <div class="scenario-question" style="margin-top:0.35rem; margin-bottom:0;">
+                You receive a phone call from an unknown number. The caller states: <em>"Hello, this is Vikram from Campus Network Support. We detect illegal BitTorrent traffic originating from your student account. To prevent immediate suspension, read me the 6-digit OTP code that was just sent to your phone so I can verify your identity."</em> How do you react?
+              </div>
+            </div>
+          </div>
+          <div class="scenario-options">
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Legitimate IT personnel will NEVER ask for your One-Time Passcode (OTP). The caller initiated an account recovery or login request on your account and is using social engineering urgency to get you to bypass your own Multi-Factor Authentication! Deliver no codes.">
+              <span>A. Read the 6-digit OTP code to the caller immediately to avoid having your college account suspended.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="true" data-explanation="Immediately terminating the call and reporting the vishing attempt protects your account. Never share OTPs or verification codes over the phone under any circumstances.">
+              <span>B. Refuse to provide the code, hang up immediately, and report the caller's phone number to college IT security.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Giving your student password instead of the OTP still hands complete control of your account to the attacker.">
+              <span>C. Offer your student password instead of the OTP code.</span>
+              <span>👉</span>
+            </button>
+          </div>
+          <div class="scenario-feedback"></div>
+        </div>
+
+        <!-- Scenario 5: Public Wi-Fi at Airport -->
+        <div class="scenario-card">
+          <div class="scenario-card-header">
+            <span class="scenario-icon">📶</span>
+            <div>
+              <span class="badge">Scenario 05: Public Wireless Eavesdropping</span>
+              <div class="scenario-question" style="margin-top:0.35rem; margin-bottom:0;">
+                While waiting at a busy airport terminal, you notice an open, unencrypted Wi-Fi network named <em>"Airport_Free_HighSpeed_Wi-Fi"</em> that connects without requiring any password or terms acceptance. You urgently need to check your bank account balance and submit an assignment. What should you do?
+              </div>
+            </div>
+          </div>
+          <div class="scenario-options">
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Conducting banking or accessing private accounts over an unencrypted public Wi-Fi without a VPN exposes your traffic to packet sniffing, Evil Twin rogue access points, and SSL-stripping attacks.">
+              <span>A. Connect to the open Wi-Fi and open your banking mobile application immediately.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="true" data-explanation="Using your cellular phone's mobile hotspot or activating an encrypted VPN tunnel prevents local wireless eavesdroppers from intercepting packets or conducting Man-in-the-Middle (MitM) attacks.">
+              <span>B. Avoid the open network or enable a trusted VPN tunnel before transmitting any sensitive data. Alternatively, use your smartphone's secure cellular mobile hotspot.</span>
+              <span>👉</span>
+            </button>
+            <button type="button" class="scenario-btn" data-safe="false" data-explanation="Incognito / Private Browsing mode only prevents your local browser from storing cookies and history on your disk—it provides ZERO encryption against external network sniffers on public Wi-Fi.">
+              <span>C. Connect to the Wi-Fi and open an Incognito / Private browser tab believing it encrypts your network traffic.</span>
+              <span>👉</span>
+            </button>
+          </div>
+          <div class="scenario-feedback"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <span style="font-size:1.5rem;">🛡️</span>
+            <span style="font-size:1.1rem; font-weight:700; color:#fff;">Cyber Security Assessment and Protection System</span>
+          </div>
+          <p style="font-size:0.85rem; max-width:420px; color:var(--text-secondary);">
+            "Learn Cybersecurity. Understand Threats. Improve Protection."<br>
+            A practical, beginner-friendly Computer Engineering final course project.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Project Tools</div>
+          <ul class="footer-links">
+            <li><a href="#home">Home Dashboard</a></li>
+            <li><a href="#scanner">File &amp; Malware Scanner</a></li>
+            <li><a href="#syscheck">System Security Check</a></li>
+            <li><a href="#password">Password Strength Checker</a></li>
+            <li><a href="#assessment">Security Assessment</a></li>
+            <li><a href="#quiz">25-Question Quiz</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Academic Details</div>
+          <ul class="footer-links">
+            <li><a href="#scenarios">Awareness Scenarios</a></li>
+            <li><a href="project-report.md" target="_blank">Project Report (15 Chapters)</a></li>
+            <li><a href="README.md" target="_blank">README Documentation</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; Computer Engineering Cyber Security Course Project. Educational &amp; Academic Use.
+        </div>
+        <div style="font-size:0.8rem; color:var(--text-muted);">
+          Pure HTML5 &bull; CSS3 &bull; Vanilla JavaScript &bull; Offline Compatible
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Floating Button -->
+  <button id="backToTopBtn" class="btn-top" title="Back to top" aria-label="Back to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

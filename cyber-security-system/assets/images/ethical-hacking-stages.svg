@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" width="100%" height="100%" style="background:#0f172a; border-radius:12px; font-family:'Segoe UI',sans-serif;">
+  <defs>
+    <linearGradient id="stageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="stageGradActive" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="stageGradFinal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <text x="450" y="30" fill="#f8fafc" font-size="16" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    7 STAGES OF THE ETHICAL HACKING METHODOLOGY
+  </text>
+  <text x="450" y="50" fill="#94a3b8" font-size="12" text-anchor="middle">
+    Standard penetration testing lifecycle from reconnaissance to remediation
+  </text>
+
+  <!-- Stage 1 -->
+  <g transform="translate(20, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGradActive)" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">1</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Reconnaissance</text>
+    <text x="52" y="82" fill="#e0f2fe" font-size="9" text-anchor="middle">OSINT &amp; Info</text>
+    <text x="52" y="95" fill="#e0f2fe" font-size="9" text-anchor="middle">Gathering</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="128" y1="130" x2="142" y2="130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2 -->
+  <g transform="translate(145, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGrad)" stroke="#0ea5e9" stroke-width="1"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">2</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Scanning</text>
+    <text x="52" y="82" fill="#bae6fd" font-size="9" text-anchor="middle">Ports &amp; Services</text>
+    <text x="52" y="95" fill="#bae6fd" font-size="9" text-anchor="middle">Enumeration</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="253" y1="130" x2="267" y2="130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 3 -->
+  <g transform="translate(270, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGrad)" stroke="#0ea5e9" stroke-width="1"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">3</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Gaining Access</text>
+    <text x="52" y="82" fill="#bae6fd" font-size="9" text-anchor="middle">Exploitation</text>
+    <text x="52" y="95" fill="#bae6fd" font-size="9" text-anchor="middle">Simulation</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="378" y1="130" x2="392" y2="130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 4 -->
+  <g transform="translate(395, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGrad)" stroke="#0ea5e9" stroke-width="1"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">4</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Maintaining</text>
+    <text x="52" y="82" fill="#bae6fd" font-size="9" text-anchor="middle">Persistence</text>
+    <text x="52" y="95" fill="#bae6fd" font-size="9" text-anchor="middle">&amp; Privilege Escalation</text>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <line x1="503" y1="130" x2="517" y2="130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 5 -->
+  <g transform="translate(520, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGrad)" stroke="#0ea5e9" stroke-width="1"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">5</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Clearing Tracks</text>
+    <text x="52" y="82" fill="#bae6fd" font-size="9" text-anchor="middle">Sanitizing Logs</text>
+    <text x="52" y="95" fill="#bae6fd" font-size="9" text-anchor="middle">&amp; Artifact Cleanup</text>
+  </g>
+
+  <!-- Arrow 5 -> 6 -->
+  <line x1="628" y1="130" x2="642" y2="130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 6 -->
+  <g transform="translate(645, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGrad)" stroke="#0ea5e9" stroke-width="1"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">6</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Reporting</text>
+    <text x="52" y="82" fill="#bae6fd" font-size="9" text-anchor="middle">Documentation</text>
+    <text x="52" y="95" fill="#bae6fd" font-size="9" text-anchor="middle">&amp; Risk Metrics</text>
+  </g>
+
+  <!-- Arrow 6 -> 7 -->
+  <line x1="753" y1="130" x2="767" y2="130" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 7 -->
+  <g transform="translate(770, 75)" filter="url(#shadow)">
+    <rect width="105" height="110" rx="8" fill="url(#stageGradFinal)" stroke="#34d399" stroke-width="1.5"/>
+    <circle cx="52" cy="30" r="16" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+    <text x="52" y="35" fill="#34d399" font-size="13" font-weight="bold" text-anchor="middle">7</text>
+    <text x="52" y="65" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Remediation</text>
+    <text x="52" y="82" fill="#d1fae5" font-size="9" text-anchor="middle">Patching &amp;</text>
+    <text x="52" y="95" fill="#d1fae5" font-size="9" text-anchor="middle">Verification</text>
+  </g>
+</svg>

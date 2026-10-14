@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="100%" height="100%" style="background:#0f172a; border-radius:12px; font-family:'Segoe UI',sans-serif;">
+  <defs>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="routerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="switchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="deviceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <marker id="arrowLan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <filter id="shadowLan">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <text x="450" y="30" fill="#f8fafc" font-size="16" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    SECURE LOCAL AREA NETWORK (LAN) ARCHITECTURE
+  </text>
+  <text x="450" y="50" fill="#94a3b8" font-size="12" text-anchor="middle">
+    Perimeter protection, managed segmentation, and endpoint isolation
+  </text>
+
+  <!-- Internet Cloud -->
+  <g transform="translate(30, 110)" filter="url(#shadowLan)">
+    <rect width="130" height="90" rx="14" fill="url(#cloudGrad)" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="65" y="42" fill="#ffffff" font-size="24" text-anchor="middle">🌐</text>
+    <text x="65" y="66" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">Public Internet</text>
+    <text x="65" y="80" fill="#bfdbfe" font-size="10" text-anchor="middle">Untrusted Zone</text>
+  </g>
+
+  <!-- Line to Router -->
+  <line x1="160" y1="155" x2="220" y2="155" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowLan)"/>
+  <text x="190" y="145" fill="#94a3b8" font-size="9" text-anchor="middle">WAN IP</text>
+
+  <!-- Router + Firewall -->
+  <g transform="translate(225, 100)" filter="url(#shadowLan)">
+    <rect width="160" height="110" rx="12" fill="url(#routerGrad)" stroke="#34d399" stroke-width="2"/>
+    <text x="80" y="38" fill="#ffffff" font-size="24" text-anchor="middle">🛡️</text>
+    <text x="80" y="62" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">Router &amp; Firewall</text>
+    <text x="80" y="78" fill="#a7f3d0" font-size="10" text-anchor="middle">NAT &bull; SPI &bull; DHCP</text>
+    <text x="80" y="94" fill="#6ee7b7" font-size="9" text-anchor="middle">WPA3 Wi-Fi Gateway</text>
+  </g>
+
+  <!-- Line to Switch -->
+  <line x1="385" y1="155" x2="445" y2="155" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowLan)"/>
+  <text x="415" y="145" fill="#94a3b8" font-size="9" text-anchor="middle">LAN Gateway</text>
+
+  <!-- Managed Switch -->
+  <g transform="translate(450, 105)" filter="url(#shadowLan)">
+    <rect width="140" height="100" rx="10" fill="url(#switchGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="70" y="38" fill="#ffffff" font-size="22" text-anchor="middle">🔀</text>
+    <text x="70" y="62" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Managed Switch</text>
+    <text x="70" y="78" fill="#bae6fd" font-size="9" text-anchor="middle">VLAN Segmentation</text>
+    <text x="70" y="90" fill="#7dd3fc" font-size="9" text-anchor="middle">802.1Q Port Security</text>
+  </g>
+
+  <!-- Distribution Lines -->
+  <path d="M 590 135 L 670 95" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrowLan)"/>
+  <path d="M 590 155 L 670 155" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrowLan)"/>
+  <path d="M 590 175 L 670 215" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4" fill="none" marker-end="url(#arrowLan)"/>
+  <path d="M 305 210 L 305 260 L 670 275" stroke="#10b981" stroke-width="2" stroke-dasharray="3" fill="none" marker-end="url(#arrowLan)"/>
+
+  <!-- Endpoints: Secure Workstations -->
+  <g transform="translate(675, 65)" filter="url(#shadowLan)">
+    <rect width="190" height="55" rx="8" fill="url(#deviceGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="24" y="34" fill="#38bdf8" font-size="20">💻</text>
+    <text x="52" y="27" fill="#f8fafc" font-size="11" font-weight="bold">Workstations &amp; PCs</text>
+    <text x="52" y="42" fill="#94a3b8" font-size="9">VLAN 10: Endpoint OS Hardened</text>
+  </g>
+
+  <!-- Endpoints: Network Attached Storage & Servers -->
+  <g transform="translate(675, 128)" filter="url(#shadowLan)">
+    <rect width="190" height="55" rx="8" fill="url(#deviceGrad)" stroke="#34d399" stroke-width="1.5"/>
+    <text x="24" y="34" fill="#34d399" font-size="20">🗄️</text>
+    <text x="52" y="27" fill="#f8fafc" font-size="11" font-weight="bold">Internal File Server / NAS</text>
+    <text x="52" y="42" fill="#94a3b8" font-size="9">VLAN 20: Encrypted Backups</text>
+  </g>
+
+  <!-- Endpoints: IoT & Smart Devices -->
+  <g transform="translate(675, 190)" filter="url(#shadowLan)">
+    <rect width="190" height="55" rx="8" fill="url(#deviceGrad)" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="24" y="34" fill="#f59e0b" font-size="20">📱</text>
+    <text x="52" y="27" fill="#f8fafc" font-size="11" font-weight="bold">IoT &amp; Smart Peripherals</text>
+    <text x="52" y="42" fill="#94a3b8" font-size="9">VLAN 30: Isolated from LAN</text>
+  </g>
+
+  <!-- Endpoints: Isolated Guest Wi-Fi -->
+  <g transform="translate(675, 252)" filter="url(#shadowLan)">
+    <rect width="190" height="55" rx="8" fill="url(#deviceGrad)" stroke="#ec4899" stroke-width="1.5"/>
+    <text x="24" y="34" fill="#ec4899" font-size="20">📶</text>
+    <text x="52" y="27" fill="#f8fafc" font-size="11" font-weight="bold">Guest Wi-Fi Network</text>
+    <text x="52" y="42" fill="#f472b6" font-size="9">Internet-Only &bull; No LAN Access</text>
+  </g>
+</svg>

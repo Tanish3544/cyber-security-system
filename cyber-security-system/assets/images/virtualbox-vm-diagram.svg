@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" width="100%" height="100%" style="background:#0f172a; border-radius:12px; font-family:'Segoe UI',sans-serif;">
+  <defs>
+    <linearGradient id="hwGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="hostOsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="hypGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="vm1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="vm2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="vm3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <filter id="shadowVm">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <text x="450" y="30" fill="#f8fafc" font-size="16" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    VIRTUALBOX TYPE-2 HYPERVISOR &amp; LAB ARCHITECTURE
+  </text>
+  <text x="450" y="50" fill="#94a3b8" font-size="12" text-anchor="middle">
+    Host-Guest Operating System separation with isolated virtual networks and snapshots
+  </text>
+
+  <!-- Guest VMs Container (Top Layer) -->
+  <g transform="translate(60, 75)" filter="url(#shadowVm)">
+    <!-- VM 1 -->
+    <rect x="0" y="0" width="230" height="95" rx="8" fill="url(#vm1Grad)" stroke="#34d399" stroke-width="1.5"/>
+    <text x="115" y="24" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">🖥️ Guest VM 1: Kali Linux</text>
+    <text x="115" y="42" fill="#d1fae5" font-size="10" text-anchor="middle">Security Testing &amp; Auditing</text>
+    <rect x="15" y="52" width="200" height="32" rx="4" fill="#0f172a" fill-opacity="0.5"/>
+    <text x="115" y="66" fill="#a7f3d0" font-size="9" text-anchor="middle">Virtual RAM: 4GB &bull; Virtual vCPU: 2</text>
+    <text x="115" y="78" fill="#6ee7b7" font-size="9" text-anchor="middle">Snapshot: "Baseline Clean"</text>
+
+    <!-- VM 2 -->
+    <rect x="270" y="0" width="230" height="95" rx="8" fill="url(#vm2Grad)" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="385" y="24" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">🖥️ Guest VM 2: Windows Lab</text>
+    <text x="385" y="42" fill="#fef3c7" font-size="10" text-anchor="middle">Target Endpoint &amp; Defense Lab</text>
+    <rect x="285" y="52" width="200" height="32" rx="4" fill="#0f172a" fill-opacity="0.5"/>
+    <text x="385" y="66" fill="#fde68a" font-size="9" text-anchor="middle">Virtual RAM: 4GB &bull; Virtual vCPU: 2</text>
+    <text x="385" y="78" fill="#fcd34d" font-size="9" text-anchor="middle">Snapshot: "Pre-Infection"</text>
+
+    <!-- VM 3 -->
+    <rect x="540" y="0" width="230" height="95" rx="8" fill="url(#vm3Grad)" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="655" y="24" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">🖥️ Guest VM 3: Vulnerable Server</text>
+    <text x="655" y="42" fill="#ede9fe" font-size="10" text-anchor="middle">Metasploitable / OWASP Juice</text>
+    <rect x="555" y="52" width="200" height="32" rx="4" fill="#0f172a" fill-opacity="0.5"/>
+    <text x="655" y="66" fill="#ddd6fe" font-size="9" text-anchor="middle">Virtual RAM: 2GB &bull; Virtual vCPU: 1</text>
+    <text x="655" y="78" fill="#c4b5fd" font-size="9" text-anchor="middle">Snapshot: "Default State"</text>
+  </g>
+
+  <!-- Virtual Network Bus -->
+  <rect x="60" y="177" width="770" height="18" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-dasharray="4"/>
+  <text x="445" y="190" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">
+    ISOLATED VIRTUAL NETWORK SWITCH (Host-Only Network &bull; No Traffic Leaks to Host LAN)
+  </text>
+
+  <!-- Hypervisor Layer (VirtualBox) -->
+  <g transform="translate(60, 203)" filter="url(#shadowVm)">
+    <rect width="770" height="42" rx="8" fill="url(#hypGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="385" y="26" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">
+      📦 Type-2 Hypervisor (Oracle VM VirtualBox Engine)
+    </text>
+  </g>
+
+  <!-- Host OS Layer -->
+  <g transform="translate(60, 252)" filter="url(#shadowVm)">
+    <rect width="770" height="36" rx="6" fill="url(#hostOsGrad)" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="385" y="23" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">
+      🪟 Host Operating System (Windows 11 / Windows 10 / Linux)
+    </text>
+  </g>
+
+  <!-- Physical Hardware Layer -->
+  <g transform="translate(60, 294)" filter="url(#shadowVm)">
+    <rect width="770" height="34" rx="6" fill="url(#hwGrad)" stroke="#64748b" stroke-width="1"/>
+    <text x="385" y="22" fill="#e2e8f0" font-size="11" font-weight="bold" text-anchor="middle">
+      ⚙️ Physical Computer Hardware (Host CPU with Intel VT-x/AMD-V, RAM, NVMe/SSD Storage)
+    </text>
+  </g>
+</svg>
